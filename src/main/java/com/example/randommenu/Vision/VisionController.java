@@ -36,9 +36,5 @@ public class VisionController {
         return visionService.extractTextFromImage(file);
     }
 
-    @GetMapping("/Image2")
-    public String Image2(){
-        return visionService.RandomMenu();
-    }
 }
 

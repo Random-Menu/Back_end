@@ -8,6 +8,5 @@ import java.util.List;
 public interface VisionService {
 
     String extractTextFromImage(MultipartFile file);
-    String RandomMenu();
 
 }
