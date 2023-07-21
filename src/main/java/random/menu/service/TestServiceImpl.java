@@ -47,43 +47,6 @@ public class TestServiceImpl implements TestService {
         return savedPath;
     }
 
-    public String extractKeywords(String imgFilePath) throws Exception {
-        AtomicReference<String> labels = new AtomicReference<>("");
-
-        try (ImageAnnotatorClient vision = ImageAnnotatorClient.create()) {
-            byte[] data = Files.readAllBytes(Path.of(imgFilePath));
-            ByteString imgBytes = ByteString.copyFrom(data);
-
-            List<AnnotateImageRequest> requests = new ArrayList<>();
-            Image img = Image.newBuilder().setContent(imgBytes).build();
-            Feature feat = Feature.newBuilder().setType(Feature.Type.LABEL_DETECTION).build();
-            AnnotateImageRequest request =
-                    AnnotateImageRequest.newBuilder()
-                            .addFeatures(feat)
-                            .setImage(img)
-                            .build();
-            requests.add(request);
-
-            BatchAnnotateImagesResponse response = vision.batchAnnotateImages(requests);
-            List<AnnotateImageResponse> responses = response.getResponsesList();
-
-            for (AnnotateImageResponse res : responses) {
-                if (res.hasError()) {
-                    logger.error("Error occurred during image annotation: {}", res.getError().getMessage());
-                    return null;
-                }
-
-                List<EntityAnnotation> keywords = res.getLabelAnnotationsList();
-                for (EntityAnnotation annotation : keywords) {
-                    String description = annotation.getDescription();
-                    labels.set(labels + description + "\n");
-                }
-            }
-        }
-
-        return labels.toString();
-    }
-
     private String getFileExtension(String filename) {
         if (StringUtils.hasLength(filename)) {
             int dotIndex = filename.lastIndexOf(".");
