@@ -12,9 +12,8 @@ import random.menu.service.RandomTestService;
 public class RandomController {
     @Autowired
     private RandomTestService randomTestService;
-
     @GetMapping("/TextFromImage")
-    public String extractTextFromImage(@RequestParam String imageUrl) throws Exception {
+    public String TextFromImage(@RequestParam String imageUrl) throws Exception {
         return randomTestService.TextFromImage(imageUrl);
     }
 
