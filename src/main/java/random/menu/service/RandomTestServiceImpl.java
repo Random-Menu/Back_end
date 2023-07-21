@@ -23,8 +23,7 @@ public class RandomTestServiceImpl implements RandomTestService {
 
     @Override
     public String getRandomText(String imageUrl) throws Exception {
-        // TextFromImage 메서드를 호출하여 텍스트를 추출하고, 라인들을 textList에 저장
-        String randomText = TextFromImage(imageUrl);
+        String randomText = TextFromImage(imageUrl);    // TextFromImage 메서드를 호출하여 텍스트를 추출하고, 라인들을 textList에 저장
 
         // textList가 null인 경우, 처음 getRandomText를 호출하는 것이므로 초기화
         if (textList == null) {
@@ -52,10 +51,7 @@ public class RandomTestServiceImpl implements RandomTestService {
             randomIndex = random.nextInt(textList.size());
         } while (selectedTexts.contains(textList.get(randomIndex)));
 
-        // 선택된 라인을 selectedTexts 리스트에 추가하여 중복 선택을 방지
-        selectedTexts.add(textList.get(randomIndex));
-
-        // 선택된 라인을 반환
+        selectedTexts.add(textList.get(randomIndex));   // 선택된 라인을 selectedTexts 리스트에 추가하여 중복 선택을 방지
         return textList.get(randomIndex);
     }
 }
