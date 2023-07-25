@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import random.menu.service.RandomTestService;
 
 @RestController
-@RequestMapping("/api")
+// @RequestMapping("/api")
 public class RandomController {
     @Autowired
     private RandomTestService randomTestService;

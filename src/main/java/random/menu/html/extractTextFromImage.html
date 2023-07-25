@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Extracted Text</title>
+</head>
+<body>
+<h1>Extracted Text</h1>
+<form action="/api/extract-text" method="post" enctype="multipart/form-data">
+  <label for="file">Select an image file:</label>
+  <input type="file" id="file" name="file" required>
+  <button type="submit">Extract Text</button>
+</form>
+<br>
+<h2>Extracted Text Result:</h2>
+<div id="result">
+  <!-- The extracted text from the image will be shown here -->
+</div>
+<script>
+  // JavaScript code to handle the form submission and display the result
+  const form = document.querySelector('form');
+  const resultDiv = document.getElementById('result');
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        const extractedText = await response.text();
+        resultDiv.innerHTML = '<p>' + extractedText + '</p>';
+      } else {
+        resultDiv.innerHTML = '<p>Failed to extract text. Please try again.</p>';
+      }
+    } catch (error) {
+      console.error(error);
+      resultDiv.innerHTML = '<p>An error occurred. Please try again later.</p>';
+    }
+  });
+</script>
+</body>
+</html>
