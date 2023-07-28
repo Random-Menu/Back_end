@@ -22,7 +22,7 @@ public class TestController {
 
     @GetMapping("/upload")
     public String showUploadForm() {
-        return "uploadForm"; // uploadForm.html 템플릿을 반환
+        return "uploadFile"; // uploadFile.html 템플릿을 반환
     }
 
     @PostMapping("/upload")

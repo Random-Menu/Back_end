@@ -29,7 +29,7 @@ public class TestServiceImpl implements TestService {
         String uuid = UUID.randomUUID().toString();
         String extension = getFileExtension(originalName);
         String savedName = uuid + extension;
-        String savedPath = "C:/path/to/your/directory/" + savedName;
+        String savedPath  = "C:/path/to/your/upload" + savedName;   // 실제 시스템의 디렉토리 경로에 맞게 디렉토리 경로를 업데이트
 
         try {
             Path targetLocation = Path.of(savedPath);
