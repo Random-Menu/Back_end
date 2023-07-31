@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 public class TestServiceImpl implements TestService {
 
     private static final Logger logger = LoggerFactory.getLogger(TestServiceImpl.class);
+    private static final String UPLOAD_DIRECTORY = "uploads"; // 업로드된 파일을 저장할 디렉토리 이름
 
     @Override
     public String saveFile(MultipartFile file) throws IOException {
@@ -29,7 +31,14 @@ public class TestServiceImpl implements TestService {
         String uuid = UUID.randomUUID().toString();
         String extension = getFileExtension(originalName);
         String savedName = uuid + extension;
-        String savedPath  = "C:/path/to/your/upload" + savedName;   // 실제 시스템의 디렉토리 경로에 맞게 디렉토리 경로를 업데이트
+
+        // 현재 작업 디렉토리에 /uploads 디렉토리 생성
+        Path uploadPath = Paths.get(System.getProperty("user.dir"), UPLOAD_DIRECTORY);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+
+        String savedPath = uploadPath.resolve(savedName).toString();
 
         try {
             Path targetLocation = Path.of(savedPath);
@@ -41,6 +50,7 @@ public class TestServiceImpl implements TestService {
 
         return savedPath;
     }
+
 
     @Override
     public String removeNumbersFromText(String text) {

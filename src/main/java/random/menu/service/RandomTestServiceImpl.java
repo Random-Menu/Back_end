@@ -2,6 +2,7 @@ package random.menu.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -11,8 +12,8 @@ public class RandomTestServiceImpl implements RandomTestService {
     @Autowired
     private TestService testService;
 
-    private List<String> textList; // 추출된 텍스트 라인들을 저장할 리스트
-    private List<String> selectedTexts; // 이미 선택된 텍스트 라인들을 저장할 리스트
+    private List<String> textList = new ArrayList<>(); // 추출된 텍스트 라인들을 저장할 리스트
+    private List<String> selectedTexts = new ArrayList<>(); // 이미 선택된 텍스트 라인들을 저장할 리스트
 
     @Override
     public String TextFromImage(String imageUrl) throws Exception {
