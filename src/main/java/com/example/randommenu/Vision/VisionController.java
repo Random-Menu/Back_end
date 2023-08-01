@@ -32,8 +32,6 @@ public class VisionController {
     @Autowired
     private CloudVisionTemplate cloudVisionTemplate;
 
-    // 이미지 업로드 및 글자 추출
-
 
     // 이미지 업로드 및 추천 텍스트 추출
     @PostMapping("/uploadAndRecommend")
